@@ -8,6 +8,8 @@ public class GameOrchestrator : MonoBehaviour
 	public GameObject minionPrefab;
 	public float rndRadius;
 	public float minionRadiusSize;
+
+	public GameObject obstaclePrefab;
 	
 	void Start () {
 		
@@ -31,6 +33,30 @@ public class GameOrchestrator : MonoBehaviour
 					break;
 				}	
 			}
+		}
+
+		StartCoroutine(SpawnObstacle());
+	}
+
+	private IEnumerator SpawnObstacle()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(0.1f);
+		
+			// Choose a position outside of camera
+			float height = Camera.main.orthographicSize * 2f;
+			float width = (height / 9f) * 16f;
+		
+		
+			// Choose a point between : x => (height / 2 * Random(-1 || 1)) + Sign(x) * offset
+			float rndSign = Mathf.Sign(Random.Range(-1, 1));
+			float x = ((height / 2f) * rndSign) + rndSign * 60f;
+		
+			rndSign = Mathf.Sign(Random.Range(-1, 1));
+			float y = ((width / 2f) * rndSign) + rndSign * 60f;
+
+			Instantiate(obstaclePrefab, new Vector2(x, y), Quaternion.identity);	
 		}
 	}
 }

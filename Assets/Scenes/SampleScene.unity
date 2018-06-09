@@ -242,9 +242,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nbOfMinions: 10
-  minionPrefab: {fileID: 0}
+  minionPrefab: {fileID: 1982681346246556, guid: 4eaefc6d7b6d34fd6982ec4010a163ac,
+    type: 2}
   rndRadius: 250
   minionRadiusSize: 30
+  obstaclePrefab: {fileID: 1932237301797552, guid: b035c43da6cb84bb28803e5ae164d07e,
+    type: 2}
 --- !u!4 &1067513322
 Transform:
   m_ObjectHideFlags: 0
