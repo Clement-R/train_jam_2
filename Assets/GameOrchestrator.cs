@@ -10,6 +10,8 @@ public class GameOrchestrator : MonoBehaviour
 	public float minionRadiusSize;
 
 	public GameObject obstaclePrefab;
+
+	private float _offset = 60f;
 	
 	void Start () {
 		
@@ -42,21 +44,37 @@ public class GameOrchestrator : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.5f);
 		
 			// Choose a position outside of camera
 			float height = Camera.main.orthographicSize * 2f;
 			float width = (height / 9f) * 16f;
 		
-		
-			// Choose a point between : x => (height / 2 * Random(-1 || 1)) + Sign(x) * offset
-			float rndSign = Mathf.Sign(Random.Range(-1, 1));
-			float x = ((height / 2f) * rndSign) + rndSign * 60f;
-		
-			rndSign = Mathf.Sign(Random.Range(-1, 1));
-			float y = ((width / 2f) * rndSign) + rndSign * 60f;
+			// Choose if the point is going to move on Y or X
+			float rnd = Random.Range(-1f, 1f);
 
-			Instantiate(obstaclePrefab, new Vector2(x, y), Quaternion.identity);	
+			float x = 0f;
+			float y = 0f;
+
+			if (rnd >= 0)
+			{
+				// Move on X
+				x = Random.Range(-width / 2f, width / 2f);
+				y = ((height / 2f) + _offset) * (rnd < 0.5f ? 1f : -1f);
+			}
+			else
+			{
+				// Move on Y
+				x = ((width / 2f) + _offset) * (rnd < -0.5f ? 1f : -1f);
+				y = Random.Range(-height / 2f, height / 2f);
+			}
+			
+			GameObject obstacle = Instantiate(obstaclePrefab, new Vector2(x, y), Quaternion.identity);
+			
+			Vector2 target = Vector2.zero;
+			target.x = -x;
+			target.y = -y;
+			obstacle.GetComponent<ObstacleBehaviour>().Launch(target);
 		}
 	}
 }

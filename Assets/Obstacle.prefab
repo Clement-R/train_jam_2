@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114768929682576294}
   m_Layer: 0
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64edd9ccf611847de9d9279abd991765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0}
   speed: 250
 --- !u!212 &212872231447962084
 SpriteRenderer:

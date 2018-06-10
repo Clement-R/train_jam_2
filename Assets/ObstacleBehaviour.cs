@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class ObstacleBehaviour : MonoBehaviour
 {
-	public Vector2 target;
 	public float speed = 250f;
 	private Rigidbody2D _rb2d;
+	private Vector2 _target;
 	
-	void Start ()
+	void Awake ()
 	{
-		target = transform.position;
 		_rb2d = GetComponent<Rigidbody2D>();
+	}
+
+	public void Launch(Vector2 target)
+	{
+		_target = target;
 		_rb2d.velocity = (target - new Vector2(transform.position.x, transform.position.y)).normalized * speed;
 	}
 
@@ -22,6 +26,11 @@ public class ObstacleBehaviour : MonoBehaviour
 			// TODO : Particle effect on both
 			Destroy(other.gameObject);
 			Destroy(gameObject);	
+		}
+		else if (other.gameObject.CompareTag("Obstacle"))
+		{
+			Destroy(other.gameObject);
+			Destroy(gameObject);
 		}
 	}
 }
